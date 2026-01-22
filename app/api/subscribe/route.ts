@@ -1,19 +1,33 @@
-import { NextResponse } from "next/server";
-import path from "path";
-import fs from "fs";
+import { NextResponse } from 'next/server';
+import { supabase } from '@/lib/supabase';
 
+export async function POST(req: Request) {
+  try {
+    const { email } = await req.json();
 
+    if (!email || email.trim() === '') {
+      return NextResponse.json(
+        { error: 'Email is required' },
+        { status: 400 }
+      );
+    }
 
-export async function POST(req: Request) { // Handle subscription
-  const { email } = await req.json(); // Extract email from request body
+    const { error } = await supabase
+      .from('emails')
+      .insert({ email: email.trim() });
 
-  if (!email || !email.includes('@')) { // Basic email validation
-    return NextResponse.json({ error: 'Invalid email address' }, { status: 400 });
+    if (error) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: 500 }
+      );
+    }
+
+    return NextResponse.json({ success: true });
+  } catch (err) {
+    return NextResponse.json(
+      { error: 'Server error' },
+      { status: 500 }
+    );
   }
-  const filePath = path.join(process.cwd(), 'emails.txt'); // Path to store emails
-
-  fs.appendFileSync(filePath, email + '\n'); // Append email to file
-
-    return NextResponse.json({ message: 'Success' }); // Return success response
-
 }

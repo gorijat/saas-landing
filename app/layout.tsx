@@ -30,7 +30,7 @@ export default function RootLayout({
   {/* Plausible Analytics */}
   <script
     async
-    src="https://plausible.io/js/pa-RL3s3euFZU5ocxUQyi4iN.js"
+    src="saas-landing-khaki-omega.vercel.app"
   />
   <script
     dangerouslySetInnerHTML={{

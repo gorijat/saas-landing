@@ -163,14 +163,14 @@ export default function LandingPage() {
       {/* Problem/solution section */}
       <section className="text-center mt-16 max-w-3xl">
         <h2 className="text-2xl font-semibold mb-4">{t.problemTitle}</h2>
-        <p className="mb-6">
+        
           <ul className="list-disc list-inside mt-2">
             {t.problemPoints.map((point, index) => (
               <li key={index}>{point}</li>
             ))} 
           </ul>
           <strong> {t.strongP} </strong>
-        </p>
+        
 
         <h2 className="text-2xl font-semibold mb-4">{t.solutionTitle}</h2>
         <p>
